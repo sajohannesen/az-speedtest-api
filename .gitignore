@@ -1,0 +1,8 @@
+# Build files
+**/obj
+**/bin
+**/.idea
+
+# Development configuration
+**/appsettings.Development.json
+**/Properties
