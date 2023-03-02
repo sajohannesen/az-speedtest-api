@@ -1,8 +1,19 @@
+using SpeedTestApi.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+var connectionString = builder.Configuration.GetValue<string>("EventHub:ConnectionString");
+var entityPath = builder.Configuration.GetValue<string>("EventHub:EntityPath");
+
+builder.Services.AddScoped<ISpeedTestEvents, SpeedTestEvents>(cts =>
+{
+    return new SpeedTestEvents(connectionString, entityPath);
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
